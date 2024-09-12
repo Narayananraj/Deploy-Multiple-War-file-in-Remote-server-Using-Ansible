@@ -1,49 +1,28 @@
-  hosts: all
-  become: yes
-  vars:
-    tomcat_image: 'tomcat:latest'
-    war_files: []  # Define your WAR files here or pass them as extra variables
-
+---
+- hosts: dev
+  become: True
   tasks:
     - name: Install python pip
-      apt:
-        name: python3-pip
+      yum:
+        name: python-pip
         state: present
-
-    - name: Install Docker
-      apt:
-        name: docker.io
+    - name: Install docker
+      yum:
+        name: docker
         state: present
-
-    - name: Ensure Docker service is started
+    - name: start docker
       service:
         name: docker
         state: started
-
-    - name: Install Maven
-      apt:
-        name: maven
+        enabled: yes
+    - name: Install docker-py python module
+      pip:
+        name: docker-py
         state: present
-
-    - name: Pull Tomcat Docker image
-      community.docker.docker_image:
-        name: "{{ tomcat_image }}"
-        source: pull
-
-    - name: Run Tomcat container
-      community.docker.docker_container:
-        name: tomcat
-        image: "{{ tomcat_image }}"
+    - name: Start the container
+      docker_container:
+        name: narayananraj
+        image: "narayananraj/ansibledeploy"
         state: started
-        ports:
-          - "8080:8080"
-        volumes:
-          - /path/on/host:/usr/local/tomcat/webapps:rw  # Ensure this path is correct if you need to mount volumes
-
-    - name: Deploy WAR files to Tomcat
-      community.docker.docker_cp:
-        container: tomcat
-        src: "{{ item }}"
-        dest: "/usr/local/tomcat/webapps/"
-      with_items: "{{ war_files }}"
-      when: war_files | length > 0
+        published_ports:
+          - 0.0.0.0:8080:8080
