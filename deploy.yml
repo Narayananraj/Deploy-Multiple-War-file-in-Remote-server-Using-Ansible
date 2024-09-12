@@ -1,4 +1,4 @@
-- name: Deploy WAR files to Tomcat
+- name: Deploy files to Tomcat
   hosts: all
   become: yes
   vars:
