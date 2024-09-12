@@ -1,0 +1,51 @@
+---
+- name: Deploy WAR files to Tomcat
+  hosts: all
+  become: yes
+  vars:
+    tomcat_image: 'tomcat:latest'
+    war_files: []  # Define your WAR files here or pass them as extra variables
+
+  tasks:
+    - name: Install python pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Ensure Docker service is started
+      service:
+        name: docker
+        state: started
+
+    - name: Install Maven
+      apt:
+        name: maven
+        state: present
+
+    - name: Pull Tomcat Docker image
+      community.docker.docker_image:
+        name: "{{ tomcat_image }}"
+        source: pull
+
+    - name: Run Tomcat container
+      community.docker.docker_container:
+        name: tomcat
+        image: "{{ tomcat_image }}"
+        state: started
+        ports:
+          - "8080:8080"
+        volumes:
+          - /path/on/host:/usr/local/tomcat/webapps:rw  # Ensure this path is correct if you need to mount volumes
+
+    - name: Deploy WAR files to Tomcat
+      community.docker.docker_cp:
+        container: tomcat
+        src: "{{ item }}"
+        dest: "/usr/local/tomcat/webapps/"
+      with_items: "{{ war_files }}"
+      when: war_files | length > 0
