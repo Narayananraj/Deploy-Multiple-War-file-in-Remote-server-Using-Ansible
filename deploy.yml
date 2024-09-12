@@ -47,6 +47,5 @@
         container: tomcat
         src: "{{ item }}"
         dest: "/usr/local/tomcat/webapps/"
-        mode "777"
       with_items: "{{ war_files }}"
       when: war_files | length > 0
