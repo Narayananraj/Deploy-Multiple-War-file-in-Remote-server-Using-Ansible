@@ -1,4 +1,3 @@
----
 - name: Deploy WAR files to Tomcat
   hosts: all
   become: yes
