@@ -1,2 +1,2 @@
-172.31.17.141 ansible_user = ubuntu
-172.31.17.18 ansible_user = ubuntu
+172.31.17.141 ansible_user=ubuntu
+172.31.17.18 ansible_user=ubuntu
