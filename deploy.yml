@@ -43,8 +43,8 @@
 
     - name: Copy file to Tomcat webapps
       copy:
-        src: /var/lib/jenkins/workspace/ansible deploy/src/main/webapps/index.html
-        dest: /usr/local/tomcat/webapps/index.html
+        src: /var/lib/jenkins/workspace/ansible deploy/target/dockeransible-1.0-SNAPSHOT.war
+        dest: /usr/local/tomcat/webapps/dockeransible-1.0-SNAPSHOT.war
         remote_src: yes
         mode: '0777'
 
