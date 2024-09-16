@@ -41,4 +41,10 @@
         published_ports:
           - "8090:8080"
 
-    
+    - name: Copy WAR file to Tomcat webapps
+      copy:
+        src: target/*.war
+        dest: /usr/local/tomcat/webapps/dockeransible.war
+        mode: '0644'
+      delegate_to: localhost
+      become: false
