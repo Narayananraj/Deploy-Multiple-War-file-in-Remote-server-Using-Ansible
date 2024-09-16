@@ -44,7 +44,7 @@
     - name: Copy WAR file to Tomcat webapps
       copy:
         src: /var/lib/jenkins/workspace/ansible deploy/target/dockeransible-1.0-SNAPSHOT.war
-        dest: /usr/local/tomcat/webapps/dockeransible.war
+        dest: /usr/local/tomcat/webapps/
         mode: '0777'
         remote_src: yes
         when: ansible_os_family == "Debian"
