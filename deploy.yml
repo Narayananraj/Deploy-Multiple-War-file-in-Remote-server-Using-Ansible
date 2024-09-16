@@ -2,25 +2,29 @@
 - hosts: all
   become: True
   tasks:
-   - name: Update package index (Debian-based)
+    - name: Update package index (Debian-based)
       apt:
         update_cache: yes
       when: ansible_os_family == "Debian"
-    - name: Install python3-pip
+
+    - name: Install python3-pip (Debian-based)
       apt:
         name: python3-pip
         state: present
+      when: ansible_os_family == "Debian"
 
-    - name: Install Docker
+    - name: Install Docker (Debian-based)
       apt:
-        name: docker
+        name: docker.io
         state: present
+      when: ansible_os_family == "Debian"
 
-    - name: Start Docker service
+    - name: Start Docker service (Debian-based)
       service:
         name: docker
         state: started
         enabled: yes
+      when: ansible_os_family == "Debian"
 
     - name: Pull Apache Tomcat Docker image
       docker_image:
@@ -42,3 +46,4 @@
         src: target/*.war
         dest: /usr/local/tomcat/webapps/dockeransible.war
         mode: '0777'
+      when: ansible_os_family == "Debian"
