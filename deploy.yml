@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  become: True
+  become: true
   tasks:
     - name: Update package index (Debian-based)
       apt:
@@ -41,9 +41,8 @@
         published_ports:
           - "8080:8080"
 
-   - name: Copy WAR file on remote host
-  copy:
-    src: /path/on/remote/dockeransible.war
-    dest: /usr/local/tomcat/webapps/dockeransible.war
-    mode: '0777'
-    remote_src: yes
+    - name: Copy WAR file to Tomcat webapps
+      copy:
+        src: /var/lib/jenkins/workspace/ansible_deploy/target/dockeransible.war
+        dest: /usr/local/tomcat/webapps/dockeransible.war
+        mode: '0777'
