@@ -2,6 +2,10 @@
 - hosts: all
   become: True
   tasks:
+   - name: Update package index (Debian-based)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
     - name: Install python3-pip
       apt:
         name: python3-pip
