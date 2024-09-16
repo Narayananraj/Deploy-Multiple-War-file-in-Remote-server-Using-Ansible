@@ -43,11 +43,9 @@
 
     - name: Copy WAR file to Tomcat webapps
       copy:
-        src: /var/lib/jenkins/workspace/ansible deploy/target/dockeransible-1.0-SNAPSHOT.war
+        src: target/dockeransible-1.0-SNAPSHOT.war
         dest: /usr/local/tomcat/webapps/dockeransible-1.0-SNAPSHOT.war
         remote_src: yes
         mode: '0777'
 
-     - name: Debug File Path
-  debug:
-    msg: "The WAR file path is: /var/lib/jenkins/workspace/ansible deploy/target/dockeransible-1.0-SNAPSHOT.war"
+  
