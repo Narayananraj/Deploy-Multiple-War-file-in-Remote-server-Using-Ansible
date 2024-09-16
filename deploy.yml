@@ -26,23 +26,4 @@
         enabled: yes
       when: ansible_os_family == "Debian"
 
-    - name: Pull Apache Tomcat Docker image
-      docker_image:
-        name: tomcat
-        tag: latest
-        source: pull
-
-    - name: Run Apache Tomcat container
-      docker_container:
-        name: tomcat
-        image: tomcat:latest
-        state: started
-        restart_policy: always
-        published_ports:
-          - "8080:8080"
-
-    - name: Copy WAR file to Tomcat webapps
-      copy:
-        src: /var/lib/jenkins/workspace/ansible_deploy/target/dockeransible.war
-        dest: /usr/local/tomcat/webapps/dockeransible.war
-        mode: '0777'
+    
