@@ -18,10 +18,24 @@
         state: started
         enabled: yes
 
-    - name: Start the container
-      community.docker.docker_container:
-        name: narayananraj
-        image: "narayananraj/ansibledeploy"
+        - name: Pull Apache Tomcat Docker image
+      docker_image:
+        name: tomcat
+        tag: latest
+        source: pull
+
+    - name: Run Apache Tomcat container
+      docker_container:
+        name: tomcat
+        image: tomcat:latest
         state: started
+        restart_policy: always
         published_ports:
-          - "0.0.0.0:8080:8080"
+          - "8080:8080"
+
+
+          - name: Copy file with owner and permissions
+      copy:
+        src: target/*.war
+        dest: /usr/local/tomcat/webapps/dockeransible.war
+        mode: '0777'  # Using '0777' to set file permissions correctly
