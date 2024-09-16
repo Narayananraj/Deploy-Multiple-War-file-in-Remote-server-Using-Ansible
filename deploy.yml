@@ -43,8 +43,8 @@
 
     - name: Copy WAR file to Tomcat webapps
       copy:
-        src: target/dockeransible-1.0-SNAPSHOT.war
-        dest: /usr/local/tomcat/webapps/dockeransible-1.0-SNAPSHOT.war
+        src: target/dockeransible.war
+        dest: /usr/local/tomcat/webapps/dockeransible.war
         remote_src: yes
         mode: '0777'
 
