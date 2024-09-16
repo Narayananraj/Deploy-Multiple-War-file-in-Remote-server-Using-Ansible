@@ -43,7 +43,7 @@
 
     - name: Copy WAR file to Tomcat webapps
       copy:
-        src: target/*.war
+        src: target/dockeransible.war
         dest: /usr/local/tomcat/webapps/dockeransible.war
         mode: '0777'
       when: ansible_os_family == "Debian"
