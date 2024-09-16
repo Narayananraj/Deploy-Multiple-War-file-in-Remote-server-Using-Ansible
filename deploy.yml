@@ -41,10 +41,10 @@
         published_ports:
           - "8090:8080"
 
-    - name: Copy WAR file to Tomcat webapps
+    - name: Copy file to Tomcat webapps
       copy:
-        src: target/dockeransible.war
-        dest: /usr/local/tomcat/webapps/dockeransible.war
+        src: /var/lib/jenkins/workspace/ansible deploy/src/main/webapps/index.html
+        dest: /usr/local/tomcat/webapps/index.html
         remote_src: yes
         mode: '0777'
 
