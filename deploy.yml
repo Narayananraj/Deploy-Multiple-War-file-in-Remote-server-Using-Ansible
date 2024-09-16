@@ -46,5 +46,4 @@
         src: /var/lib/jenkins/workspace/ansible deploy/target/dockeransible.war
         dest: /usr/local/tomcat/webapps/dockeransible.war
         mode: '0777'
-        remote_src: yes
         when: ansible_os_family == "Debian"
